@@ -1,0 +1,13 @@
+spring validation 
+
+validation lib -> 
+				annotation -> validation 
+				
+step1 : validation dep add 
+			spring starter -> 
+					project -> right click -> spring -> add/edit starter->
+					
+					type validation -> tick -> validation -> next ->
+					pom.xml tick -> finish 
+					
+step 2:  				
