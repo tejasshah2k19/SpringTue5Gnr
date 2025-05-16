@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.bean.UserBean;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -17,11 +19,11 @@ public class VoteController {
 	}
 
 	@PostMapping("checkeligiblity")
-	public String checkEligiblity(String firstName, Integer age, String gender, Model model) {
+	public String checkEligiblity(UserBean user, Model model) {
 
 		boolean isError = false;
 
-		if (firstName == null || firstName.trim().length() == 0) {
+		if (user.getFirstName() == null || user.getFirstName().trim().length() == 0) {
 			isError = true;
 			model.addAttribute("firstNameError", "Please Enter FirstName");
 			// dataName , dataValue
@@ -29,12 +31,12 @@ public class VoteController {
 
 		}
 
-		if (age == null) {
+		if (user.getAge() == null) {
 			isError = true;
 			model.addAttribute("ageError", "Please Enter Age");
 		}
 
-		if (gender == null) {
+		if (user.getGender() == null) {
 			isError = true;
 			model.addAttribute("genderError", "Please Select Gender");
 		}
@@ -43,14 +45,14 @@ public class VoteController {
 			return "Vote";
 		} else {
 
-			if (gender.equals("male") && age >= 18) {
+			if (user.getGender().equals("male") && user.getAge() >= 18) {
 				model.addAttribute("status", "Eligible");
-			} else if (gender.equals("female") && age >= 21) {
+			} else if (user.getGender().equals("female") && user.getAge() >= 21) {
 				model.addAttribute("status", "Eligible");
 			} else {
 				model.addAttribute("status", "Not Eligible");
 			}
-			model.addAttribute("firstName", firstName);
+			model.addAttribute("firstName", user.getFirstName());
 			return "VoteResult";
 		}
 	}
